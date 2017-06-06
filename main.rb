@@ -6,10 +6,10 @@ require 'discordrb'
 require 'active_support/core_ext/enumerable'
 require 'yaml'
 
-CONFIG = YAML.loadfile("data/config.yml")
-TEAMS = YAML.loadfile("data/teams.yml")
-GROUPS = YAML.loadfile("data/groups.yml")
-DESCS = YAML.loadfiles("data/descriptions.yml")
+CONFIG = YAML.load_file("data/config.yml")
+TEAMS = YAML.load_file("data/teams.yml")
+GROUPS = YAML.load_file("data/groups.yml")
+DESCS = YAML.load_file("data/descriptions.yml")
 
 bot = Discordrb::Commands::CommandBot.new(name: CONFIG['name'], 
                                           token: CONFIG['token'], 
