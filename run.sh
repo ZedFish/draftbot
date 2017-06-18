@@ -1,7 +1,11 @@
-while true
-do
   echo "updating from git.."
   git pull
+  
+  echo "updating gems.."
+  bundle update
+  
+  echo "installing gems.."
+  bundle install
 
   echo "running rubocop.."
   rubocop lib
@@ -11,4 +15,3 @@ do
 
   echo "starting bot.."
   ruby main.rb
-done
