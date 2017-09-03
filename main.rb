@@ -67,9 +67,9 @@ bot.command(:team, attributes = {description: DESCS['team_desc'],
             event.author.modify_roles(to_add, drop_array)
             date_time = Time.now.strftime("%Y/%m/%d %H:%M").to_s
             puts("#{date_time}: Removed #{drop_array_names} from #{event.author.username}##{event.author.discriminator} (#{event.author.nick})")
-            File.open(userlog.txt, 'a') { |file| file.write("#{date_time}: Removed #{drop_array_names} from #{event.author.username}##{event.author.discriminator} (#{event.author.nick})") }
+            File.open("userlog.txt", 'a') { |file| file.write("#{date_time}: Removed #{drop_array_names} from #{event.author.username}##{event.author.discriminator} (#{event.author.nick})") }
             puts("#{date_time}: Added role #{to_add.name} to #{event.author.username}##{event.author.discriminator} (#{event.author.nick})")
-            File.open(userlog.txt, 'a') { |file| file.write("#{date_time}: Added role #{to_add.name} to #{event.author.username}##{event.author.discriminator} (#{event.author.nick})") }
+            File.open("userlog.txt", 'a') { |file| file.write("#{date_time}: Added role #{to_add.name} to #{event.author.username}##{event.author.discriminator} (#{event.author.nick})") }
         
             bot.send_temporary_message(event.channel.id, content = "#{event.author.mention} is now a fan of #{to_add.name}!", timeout = 10)
             sleep 10
@@ -93,7 +93,7 @@ bot.command(:noteam, attributes = {description: DESCS['noteam_desc'],
     event.author.modify_roles(to_add, drop_array)
     date_time = Time.now.strftime("%Y/%m/%d %H:%M").to_s
     puts("#{date_time}: Removed all teams from #{event.author.username}##{event.author.discriminator} (#{event.author.nick})")
-    File.open(userlog.txt, 'a') { |file| file.write("#{date_time}: Removed all teams from #{event.author.username}##{event.author.discriminator} (#{event.author.nick})") }
+    File.open("userlog.txt", 'a') { |file| file.write("#{date_time}: Removed all teams from #{event.author.username}##{event.author.discriminator} (#{event.author.nick})") }
 
     bot.send_temporary_message(event.channel.id, content = "#{event.author.mention} has no team!", timeout = 10)
     sleep 10
@@ -122,7 +122,7 @@ bot.command(:optin, attributes = {description: DESCS['optin_desc'],
         event.author.add_role(to_add)
         date_time = Time.now.strftime("%Y/%m/%d %H:%M").to_s
         puts("#{date_time}: Added role #{newoptin} to #{event.author.username}##{event.author.discriminator} (#{event.author.nick})")
-        File.open(userlog.txt, 'a') { |file| file.write("#{date_time}: Added role #{newoptin} to #{event.author.username}##{event.author.discriminator} (#{event.author.nick})") }
+        File.open("userlog.txt", 'a') { |file| file.write("#{date_time}: Added role #{newoptin} to #{event.author.username}##{event.author.discriminator} (#{event.author.nick})") }
     end
 
     if newoptin == "All"
@@ -135,7 +135,7 @@ bot.command(:optin, attributes = {description: DESCS['optin_desc'],
         event.author.add_role(add_array)
         date_time = Time.now.strftime("%Y/%m/%d %H:%M").to_s
         puts("#{date_time}: Added all Opt-in roles to #{event.author.username}##{event.author.discriminator} (#{event.author.nick})")
-        File.open(userlog.txt, 'a') { |file| file.write("#{date_time}: Added all Opt-in roles to #{event.author.username}##{event.author.discriminator} (#{event.author.nick})") }
+        File.open("userlog.txt", 'a') { |file| file.write("#{date_time}: Added all Opt-in roles to #{event.author.username}##{event.author.discriminator} (#{event.author.nick})") }
     end
 
     bot.send_temporary_message(event.channel.id, content = "#{event.author.mention} is now a part of the #{newoptin} group!", timeout = 10)
@@ -161,7 +161,7 @@ bot.command(:optout,attributes = {description: DESCS['optout_desc'],
         event.author.remove_role(to_remove)
         date_time = Time.now.strftime("%Y/%m/%d %H:%M").to_s
         puts("#{date_time}: Removed role #{newoptout} from #{event.author.username}##{event.author.discriminator} (#{event.author.nick})")
-        File.open(userlog.txt, 'a') { |file| file.write("#{date_time}: Removed role #{newoptout} from #{event.author.username}##{event.author.discriminator} (#{event.author.nick})") }
+        File.open("userlog.txt", 'a') { |file| file.write("#{date_time}: Removed role #{newoptout} from #{event.author.username}##{event.author.discriminator} (#{event.author.nick})") }
     end
     bot.send_temporary_message(event.channel.id, content = "#{event.author.mention} is no longer a part of the #{newoptout} group!", timeout = 10)
     sleep 10
