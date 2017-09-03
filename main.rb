@@ -76,7 +76,7 @@ bot.command(:team, attributes = {description: DESCS['team_desc'],
             event.message.delete
             break
         end
-        end
+    end
 end
 
 bot.command(:noteam, attributes = {description: DESCS['noteam_desc'],
