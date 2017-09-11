@@ -23,6 +23,7 @@ def titlecase(str)
 end
 
 teamnames = []
+groupnames = []
 
 TEAMS.each do |team, array|
 	teamnames << array
