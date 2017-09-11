@@ -169,7 +169,7 @@ bot.command(:optout,attributes = {description: DESCS['optout_desc'],
 
     GROUPS.each do |key, array|
         if array.include?(newoptout)
-            to_add = event.server.roles.find {|r| r.name == key}
+            to_remove = event.server.roles.find {|r| r.name == key}
             event.author.remove_role(to_remove)
             date_time = Time.now.strftime("%Y/%m/%d %H:%M").to_s
             puts("#{date_time}: Removed role #{newoptout} from #{event.author.username}##{event.author.discriminator} (#{event.author.nick})")
