@@ -125,7 +125,7 @@ bot.command(:optin, attributes = {description: DESCS['optin_desc'],
 
     GROUPS.each do |key, array|
         if array.include?(newoptin)
-            to_add = event.server.roles.find {|r| r.name == newoptin}
+            to_add = event.server.roles.find {|r| r.name == key}
             event.author.add_role(to_add)
             date_time = Time.now.strftime("%Y/%m/%d %H:%M").to_s
             puts("#{date_time}: Added role #{newoptin} to #{event.author.username}##{event.author.discriminator} (#{event.author.nick})")
