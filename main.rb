@@ -28,10 +28,15 @@ TEAMS.each do |team, array|
 	teamnames << array
 end
 
+GROUPS.each do |group, array|
+    groupnames << array
+end
+
 teamnames.flatten!
+groupnames.flatten!
 
 teamroles = teamnames.join(" | ")
-optroles = GROUPS.join(" | ")
+optroles = groupnames.join(" | ")
 
 # COMMANDS TIME
 
@@ -61,7 +66,7 @@ bot.command(:team, attributes = {description: DESCS['team_desc'],
     end
 
     # Now we queue up the role we want to add
-    TEAMS.each_with_index do |(key,array), i|
+    TEAMS.each do |key,array|
         if array.include?(newteam)
             to_add = event.server.roles.find {|r| r.name == key}
             event.author.modify_roles(to_add, drop_array)
@@ -108,21 +113,28 @@ end
 bot.command(:optin, attributes = {description: DESCS['optin_desc'],
                                   usage: DESCS['optin_usage']}) do |event, *optin|
   
-    newoptin = titlecase(optin.join(" "))
+    newoptin = optin.join(" ")
 
-    unless GROUPS.flatten.include?(newoptin)
+    unless GROUPS.values.flatten.include?(newoptin)
         bot.send_temporary_message(event.channel.id, content = "#{event.author.mention}: \<:bt:246541254182174720> THAT WAS OUT OF BOUNDS! `#{newoptin}` is not an accepted input!", timeout = 10)
         sleep 10
         event.message.delete
         raise ArgumentError.new("THAT WAS OUT OF BOUNDS!")
     end
 
-    if GROUPS.include?(newoptin)
-        to_add = event.server.roles.find {|r| r.name == newoptin}
-        event.author.add_role(to_add)
-        date_time = Time.now.strftime("%Y/%m/%d %H:%M").to_s
-        puts("#{date_time}: Added role #{newoptin} to #{event.author.username}##{event.author.discriminator} (#{event.author.nick})")
-        File.open("userlog.txt", 'a') { |file| file.write("#{date_time}: Added role #{newoptin} to #{event.author.username}##{event.author.discriminator} (#{event.author.nick})") }
+    GROUPS.each do |key, array|
+        if array.include?(newoptin)
+            to_add = event.server.roles.find {|r| r.name == newoptin}
+            event.author.add_role(to_add)
+            date_time = Time.now.strftime("%Y/%m/%d %H:%M").to_s
+            puts("#{date_time}: Added role #{newoptin} to #{event.author.username}##{event.author.discriminator} (#{event.author.nick})")
+            File.open("userlog.txt", 'a') { |file| file.write("#{date_time}: Added role #{newoptin} to #{event.author.username}##{event.author.discriminator} (#{event.author.nick})") }
+            
+            bot.send_temporary_message(event.channel.id, content = "#{event.author.mention} is now a part of the #{newoptin} group!", timeout = 10)
+            sleep 10
+            event.message.delete
+            break
+        end
     end
 
     if newoptin == "All"
@@ -136,37 +148,38 @@ bot.command(:optin, attributes = {description: DESCS['optin_desc'],
         date_time = Time.now.strftime("%Y/%m/%d %H:%M").to_s
         puts("#{date_time}: Added all Opt-in roles to #{event.author.username}##{event.author.discriminator} (#{event.author.nick})")
         File.open("userlog.txt", 'a') { |file| file.write("#{date_time}: Added all Opt-in roles to #{event.author.username}##{event.author.discriminator} (#{event.author.nick})") }
+        bot.send_temporary_message(event.channel.id, content = "#{event.author.mention} is now a part of all optin groups!", timeout = 10)
+        sleep 10
+        event.message.delete
     end
-
-    bot.send_temporary_message(event.channel.id, content = "#{event.author.mention} is now a part of the #{newoptin} group!", timeout = 10)
-    sleep 10
-    event.message.delete
-
 end
  
 bot.command(:optout,attributes = {description: DESCS['optout_desc'],
                                   usage: DESCS['optout_usage']}) do |event, *optout|
 
-    newoptout = titlecase(optout.join(" "))
+    newoptout = optout.join(" ")
 
-    unless GROUPS.flatten.include?(newoptout)
+    unless GROUPS.values.flatten.include?(newoptout)
         bot.send_temporary_message(event.channel.id, content = "#{event.author.mention}: \<:bt:246541254182174720> THAT WAS OUT OF BOUNDS! `#{newoptout}` is not an accepted input!", timeout = 10)
         sleep 10
         event.message.delete
         raise ArgumentError.new("THAT WAS OUT OF BOUNDS!")
     end
 
-    if GROUPS.include?(newoptout)
-        to_remove = event.server.roles.find {|r| r.name == newoptout}
-        event.author.remove_role(to_remove)
-        date_time = Time.now.strftime("%Y/%m/%d %H:%M").to_s
-        puts("#{date_time}: Removed role #{newoptout} from #{event.author.username}##{event.author.discriminator} (#{event.author.nick})")
-        File.open("userlog.txt", 'a') { |file| file.write("#{date_time}: Removed role #{newoptout} from #{event.author.username}##{event.author.discriminator} (#{event.author.nick})") }
+    GROUPS.each do |key, array|
+        if array.include?(newoptout)
+            to_add = event.server.roles.find {|r| r.name == key}
+            event.author.remove_role(to_remove)
+            date_time = Time.now.strftime("%Y/%m/%d %H:%M").to_s
+            puts("#{date_time}: Removed role #{newoptout} from #{event.author.username}##{event.author.discriminator} (#{event.author.nick})")
+            File.open("userlog.txt", 'a') { |file| file.write("#{date_time}: Removed role #{newoptout} from #{event.author.username}##{event.author.discriminator} (#{event.author.nick})") }
+            
+            bot.send_temporary_message(event.channel.id, content = "#{event.author.mention} is no longer a part of the #{newoptout} group!", timeout = 10)
+            sleep 10
+            event.message.delete
+            break
+        end
     end
-    bot.send_temporary_message(event.channel.id, content = "#{event.author.mention} is no longer a part of the #{newoptout} group!", timeout = 10)
-    sleep 10
-    event.message.delete
-
 end
 
 

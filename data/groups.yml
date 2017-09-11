@@ -1,6 +1,16 @@
 ---
 # Optin groups for rAFL Discord.
-- Nerds
-- Spectators
-- Mercy Mains
-- JuanDeags
+Nerds:
+  - nerds
+Spectators:
+  - spectators
+Mercy Mains:
+  - mercy mains
+  - mercymains
+Juan Deagers:
+  - juandeagers
+  - juan deagers
+  - juandeags
+  - juan deags
+  - juandeag
+  - juandeager
