@@ -1,4 +1,4 @@
-# Written by http://www.reddit.com/u/ZedFish for the r/AFL Discord Server
+# AUTHOR: Miller Richey (github.com/ZedFish) (reddit.com/u/ZedFish)
 
 ::RBNACL_LIBSODIUM_GEM_LIB_PATH = 'C:\libsodium\libsodium.dll'
 
